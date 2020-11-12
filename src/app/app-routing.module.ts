@@ -29,20 +29,29 @@ const routes: Routes = [
     canActivate:[MainGuard],
     children:[
       {
+        path:'',
+        redirectTo:'services',
+        pathMatch:'full'
+      },
+      {
         path:'services',
-        component:ServicesComponent
+        component:ServicesComponent,
+        canActivate:[MainGuard],
       },
       {
         path:'addService',
-        component:ServiceFormComponent
+        component:ServiceFormComponent,
+        canActivate:[MainGuard],
       },
       {
         path:'services/:url',
-        component:ViewSpecificServiceComponent
+        component:ViewSpecificServiceComponent,
+        canActivate:[MainGuard],
       },
       {
         path:'editService/:url',
-        component:ServiceFormComponent
+        component:ServiceFormComponent,
+        canActivate:[MainGuard],
       }
     ]
   }

@@ -1,4 +1,10 @@
 .services-container{
+    .action-btn{
+        button{
+            background: map-get($map: $themeColors, $key: 'orange');
+            color:white
+        }
+    }
     .services-list-mobile-view{
         display:block;
         .services-card{

@@ -125,7 +125,18 @@ export class ServiceFormComponent implements OnInit {
       this._config.spinnerToggle(false);
       this._config.showSnackBar(response, 4000)
       if(action=="saveAndNew" && response.status == 1){
-        this.serviceForm.reset()
+        this.serviceForm.patchValue({
+          id:"",
+          thumbnail:new FormControl('', Validators.required),
+          name:new FormControl('', Validators.required),
+          category:"",
+          normalRate:new FormControl('', Validators.required),
+          description:new FormControl('', [Validators.required, Validators.maxLength(20)]),
+          negotiable:false,
+          hasPackages:false,
+          user:localStorage.getItem('token'),
+          packages:this._fb.array([this.newPackage()])
+        })
       }
       else{
         this._router.navigate(['/dashboard/services'])
