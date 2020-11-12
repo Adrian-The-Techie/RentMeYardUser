@@ -1,0 +1,85 @@
+<div class="service-form-container">
+    <div class="service-form-title ml-5">
+        <h3>{{title}}</h3>
+    </div>
+    <hr>
+    <div class="service-form m-2">
+        <form [formGroup]="serviceForm" (ngSubmit)="addService()">
+            <div class="thumbnail">
+                <label>Thumbnail</label>
+                <input type="file" formControlName="thumbnail">
+            </div><br>
+            <div class="name">
+                <mat-form-field class="w-100">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="category">
+                <mat-form-field class="w-100">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <div *ngFor="let category of categories" style="transform: none;">
+                            <mat-option [value]="category.id" class="w-100">{{category.name}}</mat-option>
+                        </div>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="rate">
+                <mat-form-field class="w-100">
+                    <mat-label>Normal rate</mat-label>
+                    <input matInput type="text" formControlName="normalRate">
+                </mat-form-field>
+            </div>
+            <div class="description">
+                <mat-form-field class="w-100">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description" id="" cols="30" rows="10"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="negotiable">
+                <mat-checkbox color="primary" formControlName="negotiable">Price negotiable</mat-checkbox>
+            </div>
+            <div class="include-packages">
+                <mat-checkbox color="primary" formControlName="hasPackages">Include packages</mat-checkbox>
+            </div>
+            <div class="packages-container" *ngIf="serviceForm.get('hasPackages').value">
+                <div class="packages-title ml-5">
+                    <h3>Packages</h3>
+                </div>
+                <div class="packages" formArrayName="packages" >
+                    <div *ngFor="let package of serviceForm.get('packages')['controls']; let i = index">
+                        <div class="d-flex" [formGroupName]="i">
+                            <mat-form-field class="w-100 mr-3">
+                                <mat-label>Package</mat-label>
+                                <input matInput type="text" formControlName="name" required>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <mat-label>Rates</mat-label>
+                                <input matInput type="text" formControlName="rate" required>
+                            </mat-form-field>
+                            <div class="remove">
+                                <mat-icon (click)="removePackage(i)">cancel</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-btn">
+                    <button type="button" class="btn btn-secondary" (click)="newPackage()">Add new</button>
+                </div>
+            </div>
+            <div class="action-btn d-flex justify-content-between mt-3" *ngIf="url == ''; else update">
+                <button type="button" class="btn btn-primary" (click)="addService('saveAndNew')">Save and new</button>
+                <button class="btn btn-success">Save</button>
+            </div>
+            <ng-template #update>
+                <div class="update-btn mt-3">
+                    <button type="button" class="btn btn-info" (click)="updateService()">Update service</button>
+                </div> 
+            </ng-template>
+        </form>
+    </div>
+    <div class="spinner w-100">
+        <app-spinner></app-spinner>  
+      </div>
+</div>

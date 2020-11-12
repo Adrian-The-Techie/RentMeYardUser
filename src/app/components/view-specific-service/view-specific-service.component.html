@@ -1,0 +1,62 @@
+<div class="service-details-container">
+    <mat-card>
+        <mat-card-header class="w-100 mx-auto">
+            <mat-card-title class="text-center w-100">
+                <h3>{{specificService.name}} service details</h3>
+            </mat-card-title>
+            <hr>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="specific-detail">
+                <p id="title">Name: </p>&nbsp;&nbsp;
+                <p id="detail">{{specificService.name}}</p>
+            </div>
+            <div class="specific-detail">
+                <p id="title">Category: </p>&nbsp;&nbsp;
+                <div class="badge badge-secondary" id="category-detail"><p id="detail">{{specificService.category}}</p></div>
+            </div>
+            <div class="specific-detail">
+                <p id="title">Normal Rate: </p>&nbsp;&nbsp;
+                <p id="detail">{{specificService.normal_rate}}</p>
+            </div>
+            <div class="specific-detail">
+                <p id="title">Negotiable</p>&nbsp;&nbsp;
+                <p id="detail">{{specificService.negotiable ? 'Yes' : 'No' }}</p>
+            </div>
+            <hr>
+            <div class="packages" *ngIf="packages.data.length > 0">
+                <div class="packages-title text-center">
+                    <h3>Packages</h3>
+                </div>
+                <div class="package-list-table mat-elevation-z8">
+                    <div class="d-flex justify-content-end">
+                        <mat-form-field class="w-25">
+                            <mat-label>Search</mat-label>
+                            <input type="text" matInput (keyup)="searchPackage($event.target.value)">
+                        </mat-form-field>
+                    </div>
+                    <mat-table [dataSource]="packages" matSort>
+                        <ng-container matColumnDef="id">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Package</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.condition}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.rate}}</mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns : columnsToDisplay"></mat-row>
+                    </mat-table>
+                    <mat-paginator [pageSizeOptions]="['5','10','15','20','25']" [pageSize]="10" showFirstLastButtons></mat-paginator>
+                </div>
+                <hr>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class="btn" (click)="editService(url)">Edit service</button>
+        </mat-card-actions>
+    </mat-card>
+    <div class="spinner w-100">
+        <app-spinner></app-spinner>  
+      </div>
+</div>

@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import '~aos/dist/aos.css';
+@import 'styles/config';
+@import 'styles/login';
+@import 'styles/sign-up';
+@import 'styles/spinner';
+@import 'styles/menu';
+@import 'styles/services';
+@import 'styles/specific-service';
+@import 'styles/responsive';
+
+
+html, body { height: 100%; overflow:visible!important}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

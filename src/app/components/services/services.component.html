@@ -1,0 +1,65 @@
+<div class="services-container">
+    <div class="services-title ml-5">
+        <h3>My services</h3>
+    </div>
+    <hr>
+    <div class="action-btn ml-2">
+        <button class="btn" (click)="goToAddService()">Add service</button>
+    </div>
+    <hr>
+    <div class="services-list-mobile-view m-1">
+        <div *ngFor="let service of servicesOnMobile">
+            <div class="services-card">
+                <div class="thumbnail-container">
+                    <img src="../../../assets/landing-page.png" alt="">
+                </div>
+                <div class="details ml-1">
+                    <div class="specific-detail">
+                        <p>ID:</p>&nbsp;
+                        <p>{{service.id}}</p>
+                    </div>
+                    <div class="specific-detail">
+                        <p>Name:</p>&nbsp;
+                        <p>{{service.name}}</p>
+                    </div>
+                    <div class="action-btn d-flex">
+                        <button class="btn btn-info mr-1 w-100"><a routerLink="/dashboard/services/{{service.url}}">View service</a></button>
+                        <button class="btn btn-danger w-100" (click)="deleteService(service)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <hr> 
+        </div>
+    </div>
+    <div class="services-list-table mat-elevation-z8">
+        <div class="d-flex justify-content-end">
+            <mat-form-field class="w-25">
+                <mat-label>Search</mat-label>
+                <input type="text" matInput (keyup)="searchService($event.target.value)">
+            </mat-form-field>
+        </div>
+        <mat-table [dataSource]="services" matSort>
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Service name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button class="btn btn-info mr-4" (click)="viewService(row.url)">View Service</button>
+                    <button class="btn btn-danger mr-4" (click)="deleteService(row)">Delete Service</button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+            <mat-row *matRowDef="let row; columns : columnsToDisplay"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="['5','10','15','20','25']" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+    <div class="spinner w-100">
+        <app-spinner></app-spinner>  
+    </div>
+</div>

@@ -1,0 +1,22 @@
+$themeColors:(
+    'orange':rgb(255, 153, 0),
+    'grey':grey,
+    'navy-blue':navy
+);
+
+$bg:linear-gradient(rgba(0,0,0,0.6),rgba(255,165,0, 0.8)), center/cover no-repeat fixed;
+@mixin media-md{
+    @media screen and (min-width:600px){
+        @content;
+    }
+}
+@mixin media-lg{
+    @media screen and (min-width:900px){
+        @content;
+    }
+}
+@mixin media-xl{
+    @media screen and (min-width:1545.6px){
+        @content;
+    }
+}
