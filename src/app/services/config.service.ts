@@ -8,7 +8,7 @@ import * as AOS from 'aos';
 })
 export class ConfigService {
 
-  public baseUri='https://rentmeyarduser.herokuapp.com/api/';
+  public baseUri='https://rentmeyard.herokuapp.com/api/';
 
   constructor(private _snackBar:MatSnackBar) { }
   
