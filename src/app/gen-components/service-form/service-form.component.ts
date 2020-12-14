@@ -47,6 +47,7 @@ export class ServiceFormComponent implements OnInit {
     if(type == 'edit'){
       this.title=data.name
       this.serviceForm= this._fb.group({
+        activityID: 'updateService',
         id:data.id,
         thumbnail:new FormControl(data.thumbnail, Validators.required),
         name:new FormControl(data.name, Validators.required),
@@ -70,6 +71,7 @@ export class ServiceFormComponent implements OnInit {
     else{
       this.title="New service"
       return this.serviceForm= this._fb.group({
+        activityID:'addService',
         id:"",
         thumbnail:new FormControl('', Validators.required),
         name:new FormControl('', Validators.required),
@@ -90,6 +92,14 @@ export class ServiceFormComponent implements OnInit {
       this.categories=response.data;
       this._config.spinnerToggle(false);
     })
+  }
+  getThumbnail(event){
+    if(event.target.files.length > 0){
+      const thumbnail=event.target.files[0];
+      this.serviceForm.patchValue({
+        thumbnail:thumbnail
+      })
+    }
   }
   package(type, data=null){
     if(type=='edit'){
@@ -116,14 +126,16 @@ export class ServiceFormComponent implements OnInit {
     this.packages.removeAt(index);
   }
   addService(action=null){
-    const request={
-      activityID:'addService',
-      requestData:this.serviceForm.value
+    const formData= new FormData();
+    for(let [key, value] of Object.entries(this.serviceForm.value)){
+      formData.append(key, value as any)
+      
     }
     this._config.spinnerToggle(true, "Saving service...");
-    this._http.request(request).subscribe((response)=>{
+    this._http.request(formData).subscribe((response)=>{
       this._config.spinnerToggle(false);
       this._config.showSnackBar(response, 4000)
+      console.log(response.message)
       if(action=="saveAndNew" && response.status == 1){
         this.serviceForm.patchValue({
           id:"",
@@ -144,12 +156,12 @@ export class ServiceFormComponent implements OnInit {
     })
   }
   updateService(action=null){
-    const request={
-      activityID:'updateService',
-      requestData:this.serviceForm.value
+    const formData= new FormData();
+    for(let [key, value] of Object.entries(this.serviceForm.value)){
+      formData.append(key, value as any)
     }
     this._config.spinnerToggle(true, "Updating service...");
-    this._http.request(request).subscribe((response)=>{
+    this._http.request(formData).subscribe((response)=>{
       this._config.spinnerToggle(false);
       this._config.showSnackBar(response, 4000)
     })

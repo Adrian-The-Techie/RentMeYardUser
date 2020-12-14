@@ -7,7 +7,7 @@
         <form [formGroup]="serviceForm" (ngSubmit)="addService()">
             <div class="thumbnail">
                 <label>Thumbnail</label>
-                <input type="file" formControlName="thumbnail">
+                <input type="file" formControlName="thumbnail" (change)="getThumbnail($event)">
             </div><br>
             <div class="name">
                 <mat-form-field class="w-100">
