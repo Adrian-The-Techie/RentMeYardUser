@@ -29,6 +29,7 @@ export class ConfigService {
       spinner.classList.add('open')
     }
     else{
+      contentNode.removeChild(contentNode.childNodes[0])
       spinner.classList.remove('open');
       message=null;
     }

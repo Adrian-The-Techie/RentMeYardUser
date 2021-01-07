@@ -36,7 +36,8 @@ mat-sidenav-container{
                 a{
                     text-decoration: underline;
                     font-style: italic;
-                    color:#007bff !important
+                    color:#007bff !important;
+                    cursor: pointer;
                 }
                 a:hover{
                     color: map-get($map: $themeColors, $key: 'orange');
