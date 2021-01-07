@@ -8,7 +8,7 @@ import * as AOS from 'aos';
 })
 export class ConfigService {
 
-  public baseUri='http://192.168.100.213:8000/api/';
+  public baseUri='https://rentmeyard.herokuapp.com/api/';
 
   constructor(private _snackBar:MatSnackBar) { }
   
