@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this._config.startAos();
     this.genForm()
-    this.getLocation()
+    // this.getLocation()
   }
   genForm(){
     

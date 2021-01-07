@@ -8,7 +8,7 @@ import * as AOS from 'aos';
 })
 export class ConfigService {
 
-  public baseUri='https://rentmeyard.herokuapp.com/api/';
+  public baseUri='http://192.168.100.213:8000/api/';
 
   constructor(private _snackBar:MatSnackBar) { }
   
@@ -29,7 +29,6 @@ export class ConfigService {
       spinner.classList.add('open')
     }
     else{
-      contentNode.removeChild(contentNode.childNodes[0]);
       spinner.classList.remove('open');
       message=null;
     }
