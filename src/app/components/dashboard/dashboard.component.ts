@@ -1,56 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfigService } from 'src/app/services/config.service';
-import { HttpService } from 'src/app/services/http.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ConfigService } from "src/app/services/config.service";
+import { HttpService } from "src/app/services/http.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: []
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styles: [],
 })
 export class DashboardComponent implements OnInit {
-  public mode='over';
-  public hasBackdrop='true'
+  public mode = "over";
+  public hasBackdrop = "true";
   // public hamb
-  public showMenu=true;
-  public sidenavState=false;
+  public showMenu = true;
+  public sidenavState = false;
 
-  constructor(private _http:HttpService, private _config:ConfigService, private _router:Router) { }
+  constructor(
+    private _http: HttpService,
+    private _config: ConfigService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.conditionalStyling();
   }
 
-  conditionalStyling(){
-    if(window.matchMedia("(min-width:900px)").matches){
-      this.mode='push'
-      this.hasBackdrop='false';
-      this.sidenavState= true;
+  conditionalStyling() {
+    if (window.matchMedia("(min-width:900px)").matches) {
+      this.mode = "push";
+      this.hasBackdrop = "false";
+      this.sidenavState = true;
     }
   }
-  signOut(){
+  signOut() {
     //get login_id and token
-    let loginId=localStorage.getItem('login_id')
+    let loginId = localStorage.getItem("login_id");
     // localStorage.getItem('token');
 
     //delete token and id
-    localStorage.removeItem('login_id')
-    localStorage.removeItem('token');
+    localStorage.removeItem("login_id");
+    localStorage.removeItem("token");
 
     //update user status to signed_out
-    let requestData={
-      activityID:'signOut',
-      data:{
-        login_id: loginId
-      }
-    }
-    this._http.request(requestData).subscribe((response)=>{
-      if(response.status == 1){
-        this._router.navigate(['login'])
+    let requestData = {
+      activityID: "signOut",
+      data: {
+        login_id: loginId,
+      },
+    };
+    this._http.request(requestData).subscribe((response) => {
+      if (response.status == 1) {
+        this._router.navigate(["login"]);
         this._config.showSnackBar(response, 5000);
-        console.log(response)
+        console.log(response);
       }
-    })
-
+    });
   }
 }

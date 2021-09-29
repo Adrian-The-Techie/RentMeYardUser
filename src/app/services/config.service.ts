@@ -1,51 +1,45 @@
-import { SnackbarComponent } from './../gen-components/snackbar/snackbar.component';
-import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import * as AOS from 'aos';
+import { SnackbarComponent } from "./../gen-components/snackbar/snackbar.component";
+import { Injectable } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import * as AOS from "aos";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ConfigService {
+  // public baseUri='https://rentmeyard.herokuapp.com/api/';
+  public baseUri = "http://192.168.100.213:8000/api/";
 
-  public baseUri='https://rentmeyard.herokuapp.com/api/';
+  constructor(private _snackBar: MatSnackBar) {}
 
-  constructor(private _snackBar:MatSnackBar) { }
-  
-  startAos(){
+  startAos() {
     AOS.init({
-      duration:500
+      duration: 500,
     });
   }
-  spinnerToggle(showLoader:boolean, message:string=null){
-    let spinner=document.querySelector('.spinner');
-    let span = document.createElement('span');
-    let messageNode=document.createTextNode(message);
-    let contentNode=document.querySelector('.spinner-message');
-    if(showLoader){
-      span.classList.add('textNodeStyle');
+  spinnerToggle(showLoader: boolean, message: string = null) {
+    let spinner = document.querySelector(".spinner");
+    let span = document.createElement("span");
+    let messageNode = document.createTextNode(message);
+    let contentNode = document.querySelector(".spinner-message");
+    if (showLoader) {
+      span.classList.add("textNodeStyle");
       contentNode.appendChild(span);
-      span.appendChild(messageNode)
-      spinner.classList.add('open')
+      span.appendChild(messageNode);
+      spinner.classList.add("open");
+    } else {
+      contentNode.removeChild(contentNode.childNodes[0]);
+      spinner.classList.remove("open");
+      message = null;
     }
-    else{
-      contentNode.removeChild(contentNode.childNodes[0])
-      spinner.classList.remove('open');
-      message=null;
-    }
-    
   }
 
-  showSnackBar(data, duration:number){
+  showSnackBar(data, duration: number) {
     this._snackBar.openFromComponent(SnackbarComponent, {
       duration: duration,
-      horizontalPosition:'left',
-      verticalPosition:'bottom',
-      data:data
+      horizontalPosition: "left",
+      verticalPosition: "bottom",
+      data: data,
     });
   }
 }
-
-
-
-
